@@ -70,26 +70,6 @@ PostgreSQL có thể xử lý một lượng lớn dữ liệu
 
 So sánh, MySQL và MariaDB  được biết đến với giới hạn kích thước dòng là 65,535 byte. Firebird cũng chỉ có kích thước tối đa cho một dòng là 64KB. Thông thường kích thước dữ liệu được giới hạn bởi giới hạn kích thước file của hệ điều hành. Bởi vì PostgreSQL có thể lưu trữ bảng dữ liệu trong nhiều file nhỏ hơn, nên nó có thể khắc phục được hạn chế này, điều quan trọng cần lưu ý là quá nhiều file có thể tác động hiệu năng
 
-## Ưu điểm của PostgreSQL
-Với những tính năng trên thì PostgreSQL có các ưu điểm nổi trội sau:
-- PostgreSQL có thể chạy các trang web và ứng dụng web động với LAMP.
-- Ghi nhật ký viết trước của PostgreSQL làm cho nó trở thành một cơ sở dữ liệu có khả năng chịu lỗi cao
-- Mã nguồn PostgreSQL có sẵn miễn phí theo giấy phép nguồn mở. Điều này cho phép bạn tự do sử dụng, sửa đổi và triển khai nó theo nhu cầu kinh doanh của bạn.
-- PostgreSQL hỗ trợ các đối tượng địa lý để bạn có thể sử dụng nó cho các dịch vụ dựa trên vị trí và hệ thống thông tin địa lý.
-- PostgreSQL hỗ trợ các đối tượng địa lý để nó có thể được sử dụng làm kho lưu trữ dữ liệu không gian địa lý cho các dịch vụ dựa trên vị trí và hệ thống thông tin địa lý.
-- Dễ sử dụng
-- Hạn chế việc bảo trì hệ thống
-
-## Nhược điểm của PostgreSQL
-
-Bên cạnh những điểm mạnh thì PostgreSQL cũng có những điểm yếu:
-
-- Postgres không thuộc sở hữu của một tổ chức. Vì vậy, nó đã gặp khó khăn khi đưa tên của mình ra khỏi đó mặc dù có đầy đủ tính năng và có thể so sánh với các hệ thống DBMS khác
-- Những thay đổi được thực hiện để cải thiện tốc độ đòi hỏi nhiều công việc hơn MySQL vì PostgreSQL tập trung vào khả năng tương thích.
-- Nhiều ứng dụng nguồn mở hỗ trợ MySQL, nhưng có thể không hỗ trợ PostgreSQL
-- Về số liệu hiệu suất, nó chậm hơn MySQL.
-
-
 
 ## Kiến trúc của PostgreSQL
 <image src="image/kien_truc_postgresql.png">
@@ -116,6 +96,7 @@ Cơ sở dữ liệu mặc định của PostgreSQL khi tạo database cluster.
 
 ### Tablespace
 Là đơn vị lưu trữ dữ liệu về phương diện vật lý bên dưới database. Thông thường dữ liệu vật lý được lưu trữ tại thư mục dữ liệu (nơi ta chỉ định lúc ta tạo database cluster). Nhưng có một phương pháp lưu trữ dữ liệu ngoài phân vùng này, nhờ sử dụng chức năng TABLESPACE. Khi tạo một TABLESPACE tức là ta đã tạo ra một vùng lưu trữ dữ liệu mới độc lập với dữ liệu bên dưới thư mục dữ liệu. Điều này giảm thiểu được disk I/O cho phân vùng thư mục dữ liệu (nếu trong các hệ thống cấu hình RAID, hay hệ thống có 1 đĩa cứng thì không có hiệu quả).
+
 
 ### Schema
 Là đơn vị lưu trữ bên dưới database, quản lý dữ liệu dưới dạng logic. Mặc định trong mỗi database có một schema cho người sử dụng, đó là schema public. Ta có thể tạo schema bằng câu lệnh CREATE SCHEMA. Đặc điểm của 1 schema như sau:
@@ -168,6 +149,7 @@ Trên Linux và Unix, PostgreSQL được cài tại thư mục `/usr/local/pgsq
 | postmaster.opts | File này chứa thông tin về các tuỳ chọn lần cuối của lệnh khởi động PostgreSQL.  |  |
 | postmaster.pid | File này tạo ra khi khởi động PostgreSQL và mất đi khi shutdown PostgreSQL. File chứa thông tin về PID của postmaster process, đường dẫn thư mục dữ liệu, thời gian khởi động, số hiệu port, đường dẫn Unix-domain socket (là trống trên môi trường Windows), giá trị hiệu lực đầu tiên chỉ định trong tham số listen_address và segment ID shared memory (tạo lúc khởi động PostgreSQL).  |  |
 
+
 ### Vacuum 
 Vacuum là gì ? Tại sao PostgreSQL lại cần có Vacuum ?
 - Khác với các RDBMS khác (như MySQL), khi người dùng chạy lệnh DELETE hay UPDATE, PostgreSQL không xoá dữ liệu cũ đi luôn mà chỉ đánh dấu "đó là dữ liệu đã bị xoá". Nên nếu liên tục INSERT/DELETE hoặc UPDATE dữ liệu mà không có cơ chế xoá dữ liệu dư thừa thì dung lượng ổ cứng tăng dẫn đến full.
@@ -203,6 +185,27 @@ testdb=# \! ls -l $PGDATA/base/16384/24576*
 -rw------- 1 bocap staff 8192 Jun 24 18:19 /Users/bocap/Downloads/pg94/data/base/16384/24576_vm
 
 ```
+
+## Ưu điểm của PostgreSQL
+Với những tính năng trên thì PostgreSQL có các ưu điểm nổi trội sau:
+- PostgreSQL có thể chạy các trang web và ứng dụng web động với LAMP.
+- Ghi nhật ký viết trước của PostgreSQL làm cho nó trở thành một cơ sở dữ liệu có khả năng chịu lỗi cao
+- Mã nguồn PostgreSQL có sẵn miễn phí theo giấy phép nguồn mở. Điều này cho phép bạn tự do sử dụng, sửa đổi và triển khai nó theo nhu cầu kinh doanh của bạn.
+- PostgreSQL hỗ trợ các đối tượng địa lý để bạn có thể sử dụng nó cho các dịch vụ dựa trên vị trí và hệ thống thông tin địa lý.
+- PostgreSQL hỗ trợ các đối tượng địa lý để nó có thể được sử dụng làm kho lưu trữ dữ liệu không gian địa lý cho các dịch vụ dựa trên vị trí và hệ thống thông tin địa lý.
+- Dễ sử dụng
+- Hạn chế việc bảo trì hệ thống
+
+## Nhược điểm của PostgreSQL
+
+Bên cạnh những điểm mạnh thì PostgreSQL cũng có những điểm yếu:
+
+- Postgres không thuộc sở hữu của một tổ chức. Vì vậy, nó đã gặp khó khăn khi đưa tên của mình ra khỏi đó mặc dù có đầy đủ tính năng và có thể so sánh với các hệ thống DBMS khác
+- Những thay đổi được thực hiện để cải thiện tốc độ đòi hỏi nhiều công việc hơn MySQL vì PostgreSQL tập trung vào khả năng tương thích.
+- Nhiều ứng dụng nguồn mở hỗ trợ MySQL, nhưng có thể không hỗ trợ PostgreSQL
+- Về số liệu hiệu suất, nó chậm hơn MySQL.
+
+
 ### Một số điểm khác biệt giữa PostgreSQL và MySQL
 
 |                          | MySQL                                                                                                          | PostgreSQL                                                                                                                                                              |
@@ -220,20 +223,3 @@ PostgreSQL phù hợp hơn cho các ứng dụng cấp doanh nghiệp với các
 
 MySQL phù hợp với các ứng dụng nội bộ với ít người dùng, hoặc tạo ra một công cụ lưu trữ thông tin với nhiều thao tác đọc hơn và cập nhật dữ liệu không thường xuyên.
 
-
-
-
-
-
-
-
-
-
-
-## Tóm lược
-- PostgreSQL là một hệ thống quản lý cơ sở dữ liệu nguồn mở cấp doanh nghiệp
-- PostgreSQL tương thích với các nền tảng khác nhau sử dụng tất cả các ngôn ngữ chính và phần mềm trung gian.
-- PostgreSQL là phần mềm miễn phí và nguồn mở, có nghĩa là bạn sẽ không bao giờ phải trả bất cứ điều gì cho dịch vụ này.
-Nó hỗ trợ dữ liệu JSON.
-- PostgreSQL không thuộc sở hữu của một tổ chức. Vì vậy, nó đã gặp khó khăn khi đưa tên của mình ra khỏi đó mặc dù có đầy đủ tính năng và có thể so sánh với các hệ thống DBMS khác
-- PostgreSQL được sử dụng rộng rãi trong ngành Tài chính, dữ liệu GIS của Chính phủ, Sản xuất, công nghệ Web và NoQuery và cho các công việc thu thập dữ liệu khoa học.
