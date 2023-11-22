@@ -21,7 +21,7 @@ Mô hình này ngăn chặn, giảm thiểu các cuộc tấn công từ bên ng
 ### Bảo mật
 
 - Xác thực đa yếu tố
-- Có thể đăng nhập vào máy chủ, cụm Kubernetes, cơ sở dữ liệu, ứng dụng web và máy tính để bàn Windows thông qua nhà cung cấp Đăng nhập một lần (SSO) như: Azure Active Directory (AD),GitHub,...
+- Có thể đăng nhập vào máy chủ, cụm Kubernetes, cơ sở dữ liệu, ứng dụng web và máy tính Windows desktop thông qua nhà cung cấp Đăng nhập một lần (SSO) như: Azure Active Directory (AD),GitHub,...
 - Kiểm soát truy cập các server, ứng dụng dựa theo vai trò(RBAC). Teleport cung cấp quyền kiểm soát chi tiết về việc ai có thể truy cập tài nguyên trong cơ sở hạ tầng cũng như cách họ có thể truy cập các tài nguyên đó.
 
 ### Phân quyền
