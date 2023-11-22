@@ -25,49 +25,6 @@ Một số phương thức bảo mật có sẵn với phiên bản Teleport Com
 - Kiểm soát truy cập các server, ứng dụng dựa theo vai trò(RBAC). Teleport cung cấp quyền kiểm soát chi tiết về việc ai có thể truy cập tài nguyên trong cơ sở hạ tầng cũng như cách họ có thể truy cập các tài nguyên đó.
 - Kết hợp Firewall giới hạn truy cập đến Teleport. ```jump.vinahost.vn hiện tại đang dùng Uncomplicated Firewall (ufw) trên Ubuntu```
 
-### Phân quyền
-Các user được phân quyền truy cập vào các server được thêm vào Teleport Cluster dựa trên các label(nhãn) 
-
-Ví dụ về một role có tên `role_247` cấp quyền truy cập SSH vào các server được gắn nhãn `"role: 247"` 
-```
-kind: role
-metadata:
-  # insert the name of your role here:
-  name: role_247
-spec:
-  allow:
-    logins: ['{{internal.logins}}',root]
-    node_labels:
-      'role': '247'
-    windows_desktop_labels:
-      'role': '247'
-    # Windows logins a user is allowed to use for desktop sessions.
-    windows_desktop_logins:
-    - '{{internal.windows_logins}}'
-    - administrator
-
-    rules:
-    - resources:
-      - event
-      verbs:
-      - list
-      - read
-    - resources:
-      - session
-      verbs:
-      - read
-      - list
-      where: contains(session.participants, user.metadata.name)
-  deny:
-    logins: ['guest']
-
-  options:
-      max_session_ttl: 8h0m0s
-version: v7
-```
-Các user được cấp `role_247` này sẽ thấy nhìn thấy danh sách các server được phép truy cập và user được phép sử dụng để login SSH
-
-<img src="image/teleport_role_247.png">
 
 ### Cách truy cập
 
@@ -83,12 +40,87 @@ Tải Client tại [https://goteleport.com/download/](https://goteleport.com/dow
         tsh ssh username@host_name
         ```
     - Tham khảo thêm cách sử dụng [tsh Command Line Tool](https://goteleport.com/docs/connect-your-client/tsh/)
-    
+
 - [Teleport Connect:](https://goteleport.com/docs/connect-your-client/teleport-connect/) Ứng dụng hố trợ kết nối của Teleport
 
 <img src="image/teleport_connect.png">
 
-- [Web UI:](https://goteleport.com/docs/connect-your-client/web-ui/) đăng nhập vào Teleport thông qua giao diện web và thực hiện các kết nối
+- [Web UI:](https://jump.vinahost.vn/) đăng nhập vào Teleport thông qua giao diện web và thực hiện các kết nối
 
 <img src="image/teleport_web_ui.png">
 
+  - Tham khảo các sử dụng web UI https://goteleport.com/docs/connect-your-client/web-ui/
+
+
+## Quản trị
+
+Các user được phân quyền truy cập vào các server dựa trên các role, các role này sẽ cấp quyền truy cập dựa  theo các label(nhãn) được gắn trên các server.
+
+Thêm role:
+  - Truy cập Management > User Roles > CREATE NEW ROLE để tạo role mới. 
+  - Ví dụ về một role có tên `role_247` cấp quyền truy cập SSH vào các server được gắn nhãn `"role: 247"`
+  ```
+  kind: role
+  metadata:
+    # insert the name of your role here:
+    name: role_247
+  spec:
+    allow:
+      logins: ['{{internal.logins}}',root]
+      node_labels:
+        'role': '247'
+      windows_desktop_labels:
+        'role': '247'
+      # Windows logins a user is allowed to use for desktop sessions.
+      windows_desktop_logins:
+      - '{{internal.windows_logins}}'
+      - administrator
+
+      rules:
+      - resources:
+        - event
+        verbs:
+        - list
+        - read
+      - resources:
+        - session
+        verbs:
+        - read
+        - list
+        where: contains(session.participants, user.metadata.name)
+    deny:
+      logins: ['guest']
+
+    options:
+        max_session_ttl: 8h0m0s
+  version: v7
+  ```
+
+Thêm User: 
+  - Truy cập Management > User > CREATE NEW USER, nhập tên user và chọn role.
+  
+  <img src="image/teleport_create_user.png">
+
+  - Sau khi tạo xong user sẽ nhận được một đường link tạo mật khẩu tồn tại trong 60 phút, gửi link này cho người dùng để tạo mật khẩu.
+  
+  <img src="image/teleport_user_link.png">
+
+  - Có thể tạo lại link reset password để tạo mật khẩu mới khi quên mật khẩu hoặc link cũ hết hạn
+
+  <img src="image/teleport_reset_pass.png">
+
+Các user được cấp `role_247` này sẽ thấy nhìn thấy danh sách các server được phép truy cập và user được phép sử dụng để login SSH
+
+<img src="image/teleport_role_247.png">
+
+### Session Recordings
+
+Sau khi kết thúc môt session SSH Teleport sé ghi lại các thao tác trong session SSH đó và có thể xem lại tại Management > Session Recordings
+
+### Audit Log
+Audit Log Sẽ ghi lại các hoạt động trên Teleport như tạo thêm user, bắt đầu một session SSH, Certificate Issued,...
+
+### Session & Identity Locks
+Vô hiệu hóa người dùng teleport bị xâm nhập hoặc Ngăn chặn truy cập trong quá trình bảo trì cụm.
+
+Khi vô hiệu hoá, Teleport sẽ từ chối các yêu cầu API mới và chấm dứt hoạt động kết nối với các phiên SSH, cơ sở dữ liệu và Kubernetes
