@@ -19,15 +19,16 @@ Về cơ bản Teleport là cơ quan cấp chứng chỉ và proxy truy cập đ
 Mô hình này ngăn chặn, giảm thiểu các cuộc tấn công từ bên ngoài vào các server và loại bỏ vấn đề tin cậy khi sử dụng lần đầu. Điều này cũng cho phép người dùng liệt kê tất cả các máy chủ và các tài nguyên khác hiện có.
 
 ### Bảo mật
-
+Một số phương thức bảo mật có sẵn với phiên bản Teleport Community Edition
 - Xác thực đa yếu tố
-- Có thể đăng nhập vào máy chủ, cụm Kubernetes, cơ sở dữ liệu, ứng dụng web và máy tính Windows desktop thông qua nhà cung cấp Đăng nhập một lần (SSO) như: Azure Active Directory (AD),GitHub,...
+- Có thể đăng nhập vào máy chủ, cụm Kubernetes, cơ sở dữ liệu, ứng dụng web và máy tính Windows desktop thông qua nhà cung cấp Đăng nhập một lần (SSO) như GitHub
 - Kiểm soát truy cập các server, ứng dụng dựa theo vai trò(RBAC). Teleport cung cấp quyền kiểm soát chi tiết về việc ai có thể truy cập tài nguyên trong cơ sở hạ tầng cũng như cách họ có thể truy cập các tài nguyên đó.
+- Kết hợp Firewall giới hạn truy cập đến Teleport. ```jump.vinahost.vn hiện tại đang dùng Uncomplicated Firewall (ufw) trên Ubuntu```
 
 ### Phân quyền
 Các user được phân quyền truy cập vào các server được thêm vào Teleport Cluster dựa trên các label(nhãn) 
 
-Ví dụ về một role cấp quyền truy cập SSH vào các server được gắn nhãn `"role: 247"` 
+Ví dụ về một role có tên `role_247` cấp quyền truy cập SSH vào các server được gắn nhãn `"role: 247"` 
 ```
 kind: role
 metadata:
@@ -64,7 +65,7 @@ spec:
       max_session_ttl: 8h0m0s
 version: v7
 ```
-Với role trên các user được cấp role này sẽ thấy các server được truy cập và user được phép sử dụng để login vào server
+Các user được cấp `role_247` này sẽ thấy nhìn thấy danh sách các server được phép truy cập và user được phép sử dụng để login SSH
 
 <img src="image/teleport_role_247.png">
 
@@ -82,10 +83,12 @@ Tải Client tại [https://goteleport.com/download/](https://goteleport.com/dow
         tsh ssh username@host_name
         ```
     - Tham khảo thêm cách sử dụng [tsh Command Line Tool](https://goteleport.com/docs/connect-your-client/tsh/)
-- Teleport Connect: Ứng dụng hố trợ kết nối của Teleport
+    
+- [Teleport Connect:](https://goteleport.com/docs/connect-your-client/teleport-connect/) Ứng dụng hố trợ kết nối của Teleport
 
 <img src="image/teleport_connect.png">
-- Sử dụng giao diện web, đăng nhập vào Teleport thông qua giao diện web và thực hiện kết nối
+
+- [Web UI:](https://goteleport.com/docs/connect-your-client/web-ui/) đăng nhập vào Teleport thông qua giao diện web và thực hiện các kết nối
 
 <img src="image/teleport_web_ui.png">
 
