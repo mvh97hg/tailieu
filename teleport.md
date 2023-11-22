@@ -31,7 +31,7 @@ Khi bắt đầu với Teleport Cluster mới sẽ có 3 role cho user admin là
   - access: Có thể truy cập tất cả server được kết nối từ Teleport
   - auditor: Có thể xem log và Session Recordings.
   - editor: Có quyền quản trị Teleport
-  
+
 Các user được phân quyền truy cập vào các server dựa trên các role, các role này sẽ cấp quyền truy cập dựa  theo các label(nhãn) được gắn trên các server.
 
 Thêm role:
@@ -104,7 +104,7 @@ Vô hiệu hóa người dùng teleport bị xâm nhập hoặc Ngăn chặn tru
 Khi vô hiệu hoá, Teleport sẽ từ chối các yêu cầu API mới và chấm dứt hoạt động kết nối với các phiên SSH, cơ sở dữ liệu và Kubernetes
 
 
-### Cách truy cập
+### Cách truy cập, kết nối tới server bằng Teleport
 
 Tải Client tại [https://goteleport.com/download/](https://goteleport.com/download/)
 
