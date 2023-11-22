@@ -212,10 +212,13 @@ testdb=# \! ls -l $PGDATA/base/16384/24576*
 | Loại dữ liệu             | MySQL hỗ trợ các loại dữ liệu số, ký tự, ngày và giờ, không gian và JSON.                                      | PostgreSQL hỗ trợ tất cả các loại dữ liệu MySQL cùng với các loại dữ liệu hình học, liệt kê, địa chỉ mạng, mảng, phạm vi, XML, hstore và kết hợp.                       |
 | Tuân thủ ACID            | MySQL chỉ tuân thủ ACID với công cụ lưu trữ InnoDB và NDB Cluster.                                             | PostgreSQL luôn tuân thủ ACID.                                                                                                                                          |
 | Chỉ mục                  | MySQL hỗ trợ chỉ mục B-tree và R-tree.                                                                         | PostgreSQL hỗ trợ nhiều loại chỉ mục như chỉ mục biểu thức, chỉ mục một phần và chỉ mục băm cùng với dạng cây.                                                          |
-| Hiệu năng                | MySQL có hiệu năng cao hơn đối với các thao tác đọc thường xuyên.                                              | PostgreSQL có hiệu năng cao hơn đối với các thao tác ghi thường xuyên.                                                                                                  |
 | Hỗ trợ người mới bắt đầu | MySQL dễ hơn khi bắt đầu sử dụng. MySQL có một bộ công cụ đa dạng hơn cho người dùng không chuyên về kỹ thuật. | PostgreSQL phức tạp hơn khi bắt đầu sử dụng. PostgreSQL có một bộ công cụ hạn chế cho người dùng không chuyên về kỹ thuật.                                              |
+| Hiệu năng ghi            | MySQL sử dụng tính năng khóa ghi để có khả năng mang lại tính đồng thời thực sự. Ví dụ: nếu một người dùng đang chỉnh sửa bảng, một người dùng khác có thể phải đợi cho đến khi thao tác kết thúc thì mới có thể thay đổi bảng. | PostgreSQL đã tích hợp sẵn tính năng kiểm soát đồng thời nhiều phiên bản (MVCC) mà không khóa đọc-ghi. Bằng cách này, cơ sở dữ liệu PostgreSQL có hiệu năng cao hơn trong trường hợp sử dụng các thao tác ghi thường xuyên và đồng thời. |
+| Hiệu năng đọc            | MySQL sử dụng một quy trình duy nhất cho nhiều người dùng. Do đó, cơ sở dữ liệu MySQL có hiệu năng cao hơn PostgreSQL đối với các ứng dụng chủ yếu đọc và hiển thị dữ liệu cho người dùng.                                      | PostgreSQL tạo ra một quy trình hệ thống mới với dung lượng phân bổ bộ nhớ đáng kể (khoảng 10 MB) cho mọi người dùng kết nối đến cơ sở dữ liệu. PostgreSQL đòi hỏi tài nguyên thiên về bộ nhớ để điều chỉnh quy mô cho nhiều người dùng. |
 
+PostgreSQL phù hợp hơn cho các ứng dụng cấp doanh nghiệp với các thao tác ghi thường xuyên và truy vấn phức tạp.
 
+MySQL phù hợp với các ứng dụng nội bộ với ít người dùng, hoặc tạo ra một công cụ lưu trữ thông tin với nhiều thao tác đọc hơn và cập nhật dữ liệu không thường xuyên.
 
 
 
