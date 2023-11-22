@@ -56,6 +56,20 @@ PostgreSQL hỗ trợ các loại dữ liệu nâng cao và tối ưu hóa hiệ
 
 PostgreSQL đã được chứng minh là có khả năng mở rộng cao cả về số lượng dữ liệu tuyệt đối mà nó có thể quản lý và số lượng người dùng đồng thời mà nó có thể đáp ứng. Có các cụm PostgreSQL đang hoạt động trong môi trường sản xuất quản lý nhiều terabyte dữ liệu và các hệ thống chuyên dụng quản lý petabyte.
 
+### Kích thước dữ liệu
+PostgreSQL có thể xử lý một lượng lớn dữ liệu
+| Giới hạn                             | Giá trị                           |
+|--------------------------------------|-----------------------------------|
+| Kích thước tối đa của cơ sở dữ liệu  | Không giới hạn                    |
+| Kích thước tối đa của table          | 32 TB                             |
+| Kích thước tối đa của hàng (row)     | 1.6 TB                            |
+| Kích thước tối đa của trường (field) | 1 GB                              |
+| Số hàng tối đa trên mỗi bảng         | Không giới hạn                    |
+| Số cột tối đa trên mỗi bảng          | 250 - 1600 phụ thuộc vào kiểu cột |
+| Số lượng index tối đa trên mỗi bảng  | Không giới hạn                    |
+
+So sánh, MySQL và MariaDB  được biết đến với giới hạn kích thước dòng là 65,535 byte. Firebird cũng chỉ có kích thước tối đa cho một dòng là 64KB. Thông thường kích thước dữ liệu được giới hạn bởi giới hạn kích thước file của hệ điều hành. Bởi vì PostgreSQL có thể lưu trữ bảng dữ liệu trong nhiều file nhỏ hơn, nên nó có thể khắc phục được hạn chế này, điều quan trọng cần lưu ý là quá nhiều file có thể tác động hiệu năng
+
 ## Ưu điểm của PostgreSQL
 Với những tính năng trên thì PostgreSQL có các ưu điểm nổi trội sau:
 - PostgreSQL có thể chạy các trang web và ứng dụng web động với LAMP.
@@ -189,6 +203,26 @@ testdb=# \! ls -l $PGDATA/base/16384/24576*
 -rw------- 1 bocap staff 8192 Jun 24 18:19 /Users/bocap/Downloads/pg94/data/base/16384/24576_vm
 
 ```
+### Một số điểm khác biệt giữa PostgreSQL và MySQL
+
+|                          | MySQL                                                                                                          | PostgreSQL                                                                                                                                                              |
+|--------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Công nghệ cơ sở dữ liệu  | MySQL đơn thuần là một hệ thống quản lý cơ sở dữ liệu quan hệ.                                                 | PostgreSQL là một hệ thống quản lý cơ sở dữ liệu quan hệ đối tượng.                                                                                                     |
+| Tính năng                | MySQL hỗ trợ số ít các tính năng cơ sở dữ liệu như chế độ xem, điều kiện kích hoạt và quy trình.               | PostgreSQL hỗ trợ hầu hết các tính năng cơ sở dữ liệu nâng cao như chế độ xem cụ thể hóa, điều kiện kích hoạt INSTEAD OF và quy trình được lưu trữ bằng nhiều ngôn ngữ. |
+| Loại dữ liệu             | MySQL hỗ trợ các loại dữ liệu số, ký tự, ngày và giờ, không gian và JSON.                                      | PostgreSQL hỗ trợ tất cả các loại dữ liệu MySQL cùng với các loại dữ liệu hình học, liệt kê, địa chỉ mạng, mảng, phạm vi, XML, hstore và kết hợp.                       |
+| Tuân thủ ACID            | MySQL chỉ tuân thủ ACID với công cụ lưu trữ InnoDB và NDB Cluster.                                             | PostgreSQL luôn tuân thủ ACID.                                                                                                                                          |
+| Chỉ mục                  | MySQL hỗ trợ chỉ mục B-tree và R-tree.                                                                         | PostgreSQL hỗ trợ nhiều loại chỉ mục như chỉ mục biểu thức, chỉ mục một phần và chỉ mục băm cùng với dạng cây.                                                          |
+| Hiệu năng                | MySQL có hiệu năng cao hơn đối với các thao tác đọc thường xuyên.                                              | PostgreSQL có hiệu năng cao hơn đối với các thao tác ghi thường xuyên.                                                                                                  |
+| Hỗ trợ người mới bắt đầu | MySQL dễ hơn khi bắt đầu sử dụng. MySQL có một bộ công cụ đa dạng hơn cho người dùng không chuyên về kỹ thuật. | PostgreSQL phức tạp hơn khi bắt đầu sử dụng. PostgreSQL có một bộ công cụ hạn chế cho người dùng không chuyên về kỹ thuật.                                              |
+
+
+
+
+
+
+
+
+
 
 
 
