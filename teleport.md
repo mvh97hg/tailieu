@@ -26,32 +26,6 @@ Một số phương thức bảo mật có sẵn với phiên bản Teleport Com
 - Kết hợp Firewall giới hạn truy cập đến Teleport. ```jump.vinahost.vn hiện tại đang dùng Uncomplicated Firewall (ufw) trên Ubuntu```
 
 
-### Cách truy cập
-
-Tải Client tại [https://goteleport.com/download/](https://goteleport.com/download/)
-
-- tsh client: kết nối bằng command line
-    - Đăng nhập vào teleport
-        ```
-        tsh login --proxy=jump.vinahost.vn --user=user_name 
-        ```
-    - Kết nối ssh bằng username được cho phép và hostname của server cần kết nối.
-        ```
-        tsh ssh username@host_name
-        ```
-    - Tham khảo thêm cách sử dụng [tsh Command Line Tool](https://goteleport.com/docs/connect-your-client/tsh/)
-
-- [Teleport Connect:](https://goteleport.com/docs/connect-your-client/teleport-connect/) Ứng dụng hố trợ kết nối của Teleport
-
-<img src="image/teleport_connect.png">
-
-- [Web UI:](https://jump.vinahost.vn/) đăng nhập vào Teleport thông qua giao diện web và thực hiện các kết nối
-
-<img src="image/teleport_web_ui.png">
-
-  - Tham khảo các sử dụng web UI https://goteleport.com/docs/connect-your-client/web-ui/
-
-
 ## Quản trị
 
 Các user được phân quyền truy cập vào các server dựa trên các role, các role này sẽ cấp quyền truy cập dựa  theo các label(nhãn) được gắn trên các server.
@@ -124,3 +98,29 @@ Audit Log Sẽ ghi lại các hoạt động trên Teleport như tạo thêm use
 Vô hiệu hóa người dùng teleport bị xâm nhập hoặc Ngăn chặn truy cập trong quá trình bảo trì cụm.
 
 Khi vô hiệu hoá, Teleport sẽ từ chối các yêu cầu API mới và chấm dứt hoạt động kết nối với các phiên SSH, cơ sở dữ liệu và Kubernetes
+
+
+### Cách truy cập
+
+Tải Client tại [https://goteleport.com/download/](https://goteleport.com/download/)
+
+- tsh client: kết nối bằng command line
+    - Đăng nhập vào teleport
+        ```
+        tsh login --proxy=jump.vinahost.vn --user=user_name 
+        ```
+    - Kết nối ssh bằng username được cho phép và hostname của server cần kết nối.
+        ```
+        tsh ssh username@host_name
+        ```
+    - Tham khảo thêm cách sử dụng [tsh Command Line Tool](https://goteleport.com/docs/connect-your-client/tsh/)
+
+- [Teleport Connect:](https://goteleport.com/docs/connect-your-client/teleport-connect/) Ứng dụng hố trợ kết nối của Teleport
+
+<img src="image/teleport_connect.png">
+
+- [Web UI:](https://jump.vinahost.vn/) đăng nhập vào Teleport thông qua giao diện web và thực hiện các kết nối
+
+<img src="image/teleport_web_ui.png">
+
+  - Tham khảo các sử dụng web UI https://goteleport.com/docs/connect-your-client/web-ui/
