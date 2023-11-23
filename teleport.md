@@ -106,7 +106,8 @@ Khi vô hiệu hoá, Teleport sẽ từ chối các yêu cầu API mới và ch�
 
 ### Cách truy cập, kết nối tới server bằng Teleport
 
-Tải Client tại [https://goteleport.com/download/](https://goteleport.com/download/)
+<a href="https://goteleport.com/download/](https://goteleport.com/download/" target="_blank">Tải Teleport Client</a>
+
 
 - tsh client: kết nối bằng command line
     - Đăng nhập vào teleport
@@ -119,11 +120,11 @@ Tải Client tại [https://goteleport.com/download/](https://goteleport.com/dow
         ```
     - Tham khảo thêm cách sử dụng [tsh Command Line Tool](https://goteleport.com/docs/connect-your-client/tsh/)
 
-- [Teleport Connect:](https://goteleport.com/docs/connect-your-client/teleport-connect/) Ứng dụng hố trợ kết nối của Teleport
+- <a href="https://goteleport.com/docs/connect-your-client/teleport-connect/" target="_blank">Teleport Connect:</a> Ứng dụng hố trợ kết nối của Teleport
 
 <img src="image/teleport_connect.png">
 
-- [Web UI:](https://jump.vinahost.vn/) đăng nhập vào Teleport thông qua giao diện web và thực hiện các kết nối
+- <a href="https://jump.vinahost.vn/" target="_blank">Web UI: </a>đăng nhập vào Teleport thông qua giao diện web và thực hiện các kết nối
 
 <img src="image/teleport_web_ui.png">
 
