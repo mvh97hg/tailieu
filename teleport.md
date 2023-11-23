@@ -137,6 +137,8 @@ Cài đặt crontab kiểm tra version và cập nhật tự động trên cento
 curl -Ls https://raw.githubusercontent.com/mvh97hg/tailieu/main/teleport_update.sh | bash
 ```
 
+Script
+
 ```
 #!/bin/bash
 
