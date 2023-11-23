@@ -12,7 +12,7 @@ fi
 ##Script kiểm tra và update `/scripts/update_teleport.sh`
 
 mkdir -p /scripts
-cat <'EOF'> /scripts/update_teleport.sh
+cat <<'EOF'> /scripts/update_teleport.sh
 #!/bin/bash
 
 # Lấy thông tin phiên bản từ máy chủ

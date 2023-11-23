@@ -134,6 +134,10 @@ Tải Teleport Client tại [https://goteleport.com/download/](https://gotelepor
 Cài đặt crontab kiểm tra version và cập nhật tự động trên centos
 
 ```
+curl -Ls https://raw.githubusercontent.com/mvh97hg/tailieu/main/teleport_update.sh | bash
+```
+
+```
 #!/bin/bash
 
 if ! command -v yq &> /dev/null; then
