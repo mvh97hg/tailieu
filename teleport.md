@@ -104,20 +104,41 @@ Vô hiệu hóa người dùng teleport bị xâm nhập hoặc Ngăn chặn tru
 Khi vô hiệu hoá, Teleport sẽ từ chối các yêu cầu API mới và chấm dứt hoạt động kết nối với các phiên SSH, cơ sở dữ liệu và Kubernetes
 
 
-### Cách truy cập, kết nối tới server bằng Teleport
+### Cách sử dụng Teleport để kết nối đến server
 
 Tải Teleport Client tại [https://goteleport.com/download/](https://goteleport.com/download/)
 
 - tsh client: kết nối bằng command line
     - Đăng nhập vào teleport
         ```
-        tsh login --proxy=jump.vinahost.vn --user=user_name 
+        tsh login --proxy jump.vinahost.vn --user user_name 
         ```
-    - Kết nối ssh bằng username được cho phép và hostname của server cần kết nối.
+    - Hiển thị danh sách các server
+      ```
+      tsh ls
+      tsh ls --search=node # Kết hợp tìm kiếm
+      ```
+    - Kết nối ssh bằng username được cho phép và hostname hoặc `Node Name` của server cần kết nối.
         ```
         tsh ssh username@host_name
         ```
-    - Tham khảo thêm cách sử dụng [tsh Command Line Tool](https://goteleport.com/docs/connect-your-client/tsh/)
+    - Chuyển file tới một máy chủ
+      ```
+      tsh scp .\CHANGELOG.md root@proxy-247-cus:/root
+      ```
+    - Hiển thị danh sách các record sessions, mặc định hiển thị 50.
+      ```
+      tsh recordings ls
+      tsh recordings ls --from-utc 2023-10-01 --to-utc 2023-12-01 --limit 1000 # Hiển thị 1000 record từ 2023-10-01 đến 2023-12-01 theo giờ utc
+      ```
+    - MFA
+      ```
+      tsh mfa ls  # Hiển thị danh sách các thiết bị MFA đã đăng ký.
+      tsh mfa add # Thêm thiết bị MFA mới.
+      tsh mfa rm  # Xoá thiết bị MFA.
+      ```
+
+    - Tham khảo thêm các lệnh khác với `tsh -h` hoặc [tsh Command Line Tool](https://goteleport.com/docs/connect-your-client/tsh/)
 
 - [Teleport Connect:](https://goteleport.com/docs/connect-your-client/teleport-connect/) Ứng dụng hố trợ kết nối của Teleport
 
@@ -131,10 +152,10 @@ Tải Teleport Client tại [https://goteleport.com/download/](https://gotelepor
 
 
 ### Update agent tự động
-Cài đặt crontab kiểm tra version và cập nhật tự động trên centos
+Cài đặt crontab kiểm tra version và cập nhật tự động trên centos 7
 
 ```
-curl -Ls https://raw.githubusercontent.com/mvh97hg/tailieu/main/teleport_update.sh | bash
+curl -Ls https://raw.githubusercontent.com/mvh97hg/linux/main/scripts/update_teleport.sh | bash
 ```
 
 Script
